@@ -21,4 +21,14 @@ public class DoctorService {
 	{
 	return doctorObj.readDoctor();
 	}
+	
+	@POST
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String insertDoctor(@FormParam("doctorID") int doctorID,@FormParam("doctorAge") String doctorAge,@FormParam("doctorName") String doctorName,@FormParam("doctorMail") String doctorMail,@FormParam("doctorSpeciality") String doctorSpeciality)
+	{
+		String output = doctorObj.insertDoctor(doctorID, doctorAge, doctorName, doctorMail, doctorSpeciality);
+		return output;
+	}
 }
