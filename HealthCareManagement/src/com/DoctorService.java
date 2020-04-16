@@ -49,4 +49,18 @@ public class DoctorService {
 	String output = doctorObj.updateDoctor(doctorID, doctorAge, doctorName, doctorMail, doctorSpeciality);
 	return output;
 	}
+	
+	@DELETE
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_XML)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String deleteDoctor(String doctorData)
+	{
+	//Convert the input string to an XML document
+	Document doc = Jsoup.parse(doctorData, "", Parser.xmlParser());
+	//Read the value from the element <itemID>
+	String doctorID = doc.select("doctorID").text();
+	String output = doctorObj.deleteDoctor(doctorID);
+	return output;
+	}
 }
