@@ -2,32 +2,22 @@ package model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import dbconnection.DBConnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class Doctor 
-{ 	// A common method to connect to the DB
-	private Connection connect()
-	{
-		Connection con = null;
-		try
-		{
-			Class.forName("com.mysql.jdbc.Driver");
-			//Provide the correct details: DBServer/DBName, username, password
-			con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3307/paf", "root", "");
-		}
-		catch (Exception e)
-		{e.printStackTrace();}
-		return con;
-	}
+{ 	
 
 	public String insertDoctor(int ID,String age, String name, String mail, String speciality,String MediRegNo, String workedHospital)
 	{
 		String output = "";
 		try
 		{
-			Connection con = connect();
+			DBConnection dbconnection = new DBConnection();
+			Connection con = dbconnection.connect();
+			
 				if (con == null)
 				{return "Error while connecting to the database for inserting."; }
 				// create a prepared statement
@@ -66,7 +56,8 @@ public class Doctor
 				
 			try
 			{
-				Connection con = connect();
+				DBConnection dbconnection = new DBConnection();
+				Connection con = dbconnection.connect();
 				if (con == null)
 				{return "Error while connecting to the database for reading."; }
 				
@@ -122,7 +113,8 @@ public class Doctor
 		
 		try
 		{
-				Connection con = connect();
+			DBConnection dbconnection = new DBConnection();
+			Connection con = dbconnection.connect();
 				
 				if (con == null)
 				{return "Error while connecting to the database for updating."; }
@@ -161,7 +153,8 @@ public class Doctor
 		
 		try
 		{
-			Connection con = connect();
+			DBConnection dbconnection = new DBConnection();
+			Connection con = dbconnection.connect();
 			
 			if (con == null)
 			{return "Error while connecting to the database for deleting."; }
