@@ -12,6 +12,8 @@
 		<url-pattern>/HealthCareManagement/*</url-pattern>
 		<url-pattern>/Appointment/*</url-pattern>
 		<url-pattern>/PatientAdmit/*</url-pattern>
+		<url-pattern>/PharmacyService/*</url-pattern>
+		<url-pattern>/email/*</url-pattern>
 	</servlet-mapping>
 	
   <welcome-file-list>
