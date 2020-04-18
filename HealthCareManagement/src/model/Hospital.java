@@ -6,24 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import dbconnection.DBConnection;
+
 public class Hospital {
-
-	// A common method to connect to the DB
-	private Connection connect()
-	{
-			Connection con = null;
-	  try
-	 {
-	   Class.forName("com.mysql.jdbc.Driver");
-
-	 //Provide the correct details: DBServer/DBName, username, password
-	  con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/healthcaresystem", "root", "");
-	 }
-	 catch (Exception e)
-	 {e.printStackTrace();}
-	 
-	  return con;
-	 }
 
 	public String insertHospital(String name, String address, String contactno, String capacity, String units)
 	 {
@@ -31,7 +16,8 @@ public class Hospital {
 				
 				try
 				{
-					Connection con = connect();
+					DBConnection dbconnection = new DBConnection();
+					Connection con = dbconnection.connect();
 					if (con == null)
 					{return "Error while connecting to the database for inserting."; }
 	
@@ -68,7 +54,8 @@ public class Hospital {
 			String output = "";
 	 try
 	 {
-		 		Connection con = connect();
+			DBConnection dbconnection = new DBConnection();
+			Connection con = dbconnection.connect();
 		 		
 		 		if (con == null)
 		 		{return "Error while connecting to the database for reading."; }
@@ -121,7 +108,8 @@ public class Hospital {
 				String output = "";
 				try
 	 {
-					Connection con = connect();
+					DBConnection dbconnection = new DBConnection();
+					Connection con = dbconnection.connect();
 					
 					if (con == null)
 					{return "Error while connecting to the database for updating."; }
@@ -160,7 +148,8 @@ public class Hospital {
 			
 			try
 	 {
-				Connection con = connect();
+				DBConnection dbconnection = new DBConnection();
+				Connection con = dbconnection.connect();
 				
 				if (con == null)
 				{return "Error while connecting to the database for deleting."; }

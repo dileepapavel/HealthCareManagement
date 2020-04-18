@@ -1,26 +1,16 @@
-package Controler;
+package model;
 
 import java.sql.*;
 import java.util.Date;
 
+import dbconnection.DBConnection;
+
 public class PaymentController {
-	private Connection connect() {
-		Connection con = null;
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-
-			// Provide the correct details: DBServer/DBName, username, password
-			con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/healthcaresystem", "root", "");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return con;
-	}
-
 	public String makePayment(String type, String ammount, String paymentHolder, String payeeId, String date) {
 		String output = "";
 		try {
-			Connection con = connect();
+			DBConnection dbconnection = new DBConnection();
+			Connection con = dbconnection.connect();
 			if (con == null) {
 				return "Error while connecting to the database.";
 			}
@@ -63,7 +53,8 @@ public class PaymentController {
 	public String readPayment() {
 		String output = "";
 		try {
-			Connection con = connect();
+			DBConnection dbconnection = new DBConnection();
+			Connection con = dbconnection.connect();
 			if (con == null) {
 				return "Error while connecting to the database.";
 			}
@@ -113,7 +104,8 @@ public class PaymentController {
 			String payeeId) {
 		String output = "";
 		try {
-			Connection con = connect();
+			DBConnection dbconnection = new DBConnection();
+			Connection con = dbconnection.connect();
 			if (con == null) {
 				return "Error while connecting to the database.";
 			}
@@ -163,7 +155,8 @@ public class PaymentController {
 	public String deletePayment(String PaymentID) {
 		String output = "";
 		try {
-			Connection con = connect();
+			DBConnection dbconnection = new DBConnection();
+			Connection con = dbconnection.connect();
 			if (con == null) {
 				return "Error while connecting to the database for deleting.";
 			}

@@ -3,25 +3,9 @@ package model;
 import com.google.gson.*;
 import java.sql.*;
 import java.util.Date;
+import dbconnection.DBConnection;
 
 public class AppointmentInfo {
-	//A common method to connect to the DB
-			private Connection connect()
-			 {
-			 Connection con = null;
-			 try
-			 {
-			 Class.forName("com.mysql.jdbc.Driver");
-
-			 //Provide the correct details: DBServer/DBName, username, password
-			 con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/healthcaresystem", "root", "");
-			 }
-			 catch (Exception e)
-			 {e.printStackTrace();}
-			
-			 return con;
-			 }	
-		
 			public String insertAppointmentInfo( String patientName, String gender, String contactNo, String hospitalName, String doctorName, String appointmentDate)
 			{
 				String output = "";
@@ -29,7 +13,8 @@ public class AppointmentInfo {
 				try
 				 {
 				 
-					Connection con = connect();
+					DBConnection dbconnection = new DBConnection();
+					Connection con = dbconnection.connect();
 					
 					if (con == null)
 					{return "Error while connecting to the database for inserting."; } 
@@ -79,7 +64,8 @@ public class AppointmentInfo {
 					 
 				try
 				 {
-				 Connection con = connect();
+					DBConnection dbconnection = new DBConnection();
+					Connection con = dbconnection.connect();
 				
 				 if (con == null)
 				 {return "Error while connecting to the database for reading."; }  
@@ -154,7 +140,8 @@ public class AppointmentInfo {
 				 
 			try
 			 {
-					Connection con = connect();
+				DBConnection dbconnection = new DBConnection();
+				Connection con = dbconnection.connect();
 					
 					if (con == null)
 					{return "Error while connecting to the database for updating."; }
@@ -202,7 +189,8 @@ public class AppointmentInfo {
 				try
 				 {
 				
-					Connection con = connect();
+					DBConnection dbconnection = new DBConnection();
+					Connection con = dbconnection.connect();
 				 
 				 if (con == null)
 				 {return "Error while connecting to the database for deleting."; }

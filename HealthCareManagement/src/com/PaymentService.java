@@ -1,6 +1,6 @@
 package com;
 
-import Controler.PaymentController;
+import model.PaymentController;
 import model.Payment;
 
 import java.io.Console;
