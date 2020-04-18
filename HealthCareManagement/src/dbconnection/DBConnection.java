@@ -10,7 +10,7 @@ public class DBConnection {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			// Provide the correct details: DBServer/DBName, userName, password
-			con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/user", "root", "root");
+			con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/healthcaresystem", "root", "");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

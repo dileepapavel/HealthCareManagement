@@ -17,7 +17,7 @@ public class Hospital {
 	   Class.forName("com.mysql.jdbc.Driver");
 
 	 //Provide the correct details: DBServer/DBName, username, password
-	  con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/hospital", "root", "");
+	  con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/healthcaresystem", "root", "");
 	 }
 	 catch (Exception e)
 	 {e.printStackTrace();}
@@ -98,11 +98,10 @@ public class Hospital {
 					 output += "<td>" + hosUnits + "</td>";
 	 
 					 	// buttons
-					 output += "<td><input name=\"btnUpdate\"type\"button\"value=\"Update\" class=\"btn btn-secondary\"></td>"
-							 + "<td><form method=\"post\" action=\"hospitals.jsp\">"
-							 + "<input name=\"btnRemove\" type=\"submit\" value=\"Remove\"class=\"btn btn-danger\">"
-							 + "<input name=\"hosId\" type=\"hidden\" value=\"" + hosId
-							 + "\">" + "</form></td></tr>"; 
+						output += "<td><input name=\"btnUpdate\" type=\"button\"value=\"Update\" class=\"btn btn-secondary\"></td>"
+								+ "<td><form method=\"post\" action=\"items.jsp\">"
+								+ "<input name=\"btnRemove\" type=\"submit\" value=\"Remove\"class=\"btn btn-danger\">"
+								+ "<input name=\"itemID\" type=\"hidden\" value=\"" + hosId + "\">" + "</form></td></tr>";
 	 }
 	 con.close();
 	 

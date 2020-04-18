@@ -1,4 +1,3 @@
-<%@page import="model.PaymentUserLogin"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -8,11 +7,6 @@
 </head>
 <body>
 	<form method="post" action="validate.jsp">
-	
-	<% PaymentUserLogin paymentUserLogin = null;
-		paymentUserLogin.setPassword("123456");
-		paymentUserLogin.setUsername("Sample");
-	%>
 	
 		<center>
 			<table border="1" cellpadding="5" cellspacing="2">

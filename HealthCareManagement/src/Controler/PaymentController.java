@@ -68,7 +68,7 @@ public class PaymentController {
 				return "Error while connecting to the database.";
 			}
 
-			output = "<table border=\"1\"><tr><th>Payment ID</th><th>Type</th><th>Ammount</th><th>Payment Holder</th><th>Date</th><th>HospitalID</th><th>Update</th><th>Remove</th></tr>";
+			output = "<table border=\"1\"><tr><th>Payment ID</th><th>Type</th><th>Ammount</th><th>Payment Holder</th><th>Date</th><th>HospitalID</th><th>DoctorID</th><th>PharmacyID</th><th>PatientID</th><th>Update</th><th>Remove</th></tr>";
 			String query = "select * from payments";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
@@ -80,6 +80,9 @@ public class PaymentController {
 				String paymentHolder = rs.getString("PaymentHolder");
 				String date = rs.getString("Date");
 				String hospitalID = rs.getString("HospitalID");
+				String doctorID = rs.getString("DoctorID");
+				String pharmacyID = rs.getString("PharmacyID");
+				String patientID = rs.getString("PatientID");
 
 				output += "<tr><td>" + paymentID + "</td>";
 				output += "<td>" + type + "</td>";
@@ -87,6 +90,9 @@ public class PaymentController {
 				output += "<td>" + paymentHolder + "</td>";
 				output += "<td>" + date + "</td>";
 				output += "<td>" + hospitalID + "</td>";
+				output += "<td>" + doctorID + "</td>";
+				output += "<td>" + pharmacyID + "</td>";
+				output += "<td>" + patientID + "</td>";
 // buttons
 				output += "<td><input name=\"btnUpdate\" type=\"button\"value=\"Update\" class=\"btn btn-secondary\"></td>"
 						+ "<td><form method=\"post\" action=\"items.jsp\">"

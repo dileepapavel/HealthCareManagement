@@ -14,7 +14,7 @@ public class PatientAdmitInfo {
 		 Class.forName("com.mysql.jdbc.Driver");
 
 		 //Provide the correct details: DBServer/DBName, username, password
-		 con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/patientadmit", "root", "");
+		 con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/healthcaresystem", "root", "");
 		 }
 		 catch (Exception e)
 		 {e.printStackTrace();}
