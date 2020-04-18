@@ -17,90 +17,62 @@ public class PaymentController {
 		return con;
 	}
 
-	public String insertItem(String code, String name, String price, String desc) {
+	public String makePayment(String type, String ammount, String paymentHolder, String payeeId, String date) {
 		String output = "";
 		try {
 			Connection con = connect();
 			if (con == null) {
-				return "Error while connecting to the database for inserting.";
-			}
-			// create a prepared statement
-			String query = " insert into items(`itemID`,`itemCode`,`itemName`,`itemPrice`,`itemDesc`)"
-					+ " values (?, ?, ?, ?, ?)";
-			PreparedStatement preparedStmt = con.prepareStatement(query);
-			// binding values
-			preparedStmt.setInt(1, 0);
-			preparedStmt.setString(2, code);
-			preparedStmt.setString(3, name);
-			preparedStmt.setDouble(4, Double.parseDouble(price));
-			preparedStmt.setString(5, desc);
-//execute the statement
-			preparedStmt.execute();
-			con.close();
-			output = "Inserted successfully";
-		} catch (Exception e) {
-			output = "Error while inserting the item.";
-			System.err.println(e.getMessage());
-		}
-		return output;
-	}
-
-	public String makePayment(String type, double ammount, String paymentHolder, int payeeId, Date date) {
-		String output = "";
-		try {
-			Connection con = connect();
-			if (con == null) {
-				return "Error while connecting to the database for inserting.";
+				return "Error while connecting to the database.";
 			}
 			String query = " insert into payments(`PaymentId`,`Type`,`Ammount`,`PaymentHolder`,`date`,`HospitalID`, `DoctorID`,`PharmacyID`,`PatientID`)"
 					+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			preparedStmt.setString(1, null);
 			preparedStmt.setString(2, type);
-			preparedStmt.setDouble(3, ammount);
+			preparedStmt.setString(3, ammount);
 			preparedStmt.setString(4, paymentHolder);
-			preparedStmt.setString(5, "");
+			preparedStmt.setString(5, date);
 			preparedStmt.setString(6, null);
 			preparedStmt.setString(7, null);
 			preparedStmt.setString(8, null);
 			preparedStmt.setString(9, null);
 			switch (paymentHolder) {
 			case "Doctor":
-				preparedStmt.setInt(7, payeeId);
+				preparedStmt.setString(7, payeeId);
 				break;
 			case "Hospital":
-				preparedStmt.setInt(6, payeeId);
+				preparedStmt.setString(6, payeeId);
 				break;
 			case "Pharmacy":
-				preparedStmt.setInt(8, payeeId);
+				preparedStmt.setString(8, payeeId);
 				break;
 			case "Patient":
-				preparedStmt.setInt(9, payeeId);
+				preparedStmt.setString(9, payeeId);
 				break;
 			}
 			preparedStmt.execute();
 			con.close();
 			output = "Inserted successfully";
 		} catch (Exception e) {
-			output = "Error while inserting the item.";
+			output = "Error inserting the item.";
 			System.err.println(e.getMessage());
 		}
 		return output;
 	}
 
-	public String readItems() {
+	public String readPayment() {
 		String output = "";
 		try {
 			Connection con = connect();
 			if (con == null) {
-				return "Error while connecting to the database for reading.";
+				return "Error while connecting to the database.";
 			}
-// Prepare the html table to be displayed
+
 			output = "<table border=\"1\"><tr><th>Payment ID</th><th>Type</th><th>Ammount</th><th>Payment Holder</th><th>Date</th><th>HospitalID</th><th>Update</th><th>Remove</th></tr>";
 			String query = "select * from payments";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
-// iterate through the rows in the result set
+
 			while (rs.next()) {
 				String paymentID = Integer.toString(rs.getInt("PaymentID"));
 				String type = rs.getString("Type");
@@ -125,32 +97,56 @@ public class PaymentController {
 
 			output += "</table>";
 		} catch (Exception e) {
-			output = "Error while reading the items.";
+			output = "Error while reading.";
 			System.err.println(e.getMessage());
 		}
 		return output;
 	}
 
-	public String updateItem(String ID, String code, String name, String price, String desc) {
+	public String updatePayment(int PaymentID, String type, String ammount, String paymentHolder, String date,
+			String payeeId) {
 		String output = "";
 		try {
 			Connection con = connect();
 			if (con == null) {
-				return "Error while connecting to the database for updating.";
+				return "Error while connecting to the database.";
 			}
-// create a prepared statement
-			String query = "UPDATE items SET itemCode=?,itemName=?,itemPrice=?,itemDesc=?WHERE itemID=?";
+
+			String query = "UPDATE payments SET Type=?, Ammount=?, PaymentHolder=?, date=?, HospitalID=?, DoctorID=?, PharmacyID=?, PatientID=? WHERE PaymentID = ?";
 			PreparedStatement preparedStmt = con.prepareStatement(query);
-// binding values
-			preparedStmt.setString(1, code);
-			preparedStmt.setString(2, name);
-			preparedStmt.setDouble(3, Double.parseDouble(price));
-			preparedStmt.setString(4, desc);
-			preparedStmt.setInt(5, Integer.parseInt(ID));
-// execute the statement
-			preparedStmt.execute();
+			
+			preparedStmt.setInt(9, PaymentID);
+			preparedStmt.setString(1, type);
+			preparedStmt.setString(2, ammount);
+			preparedStmt.setString(3, paymentHolder);
+			preparedStmt.setString(4, date);
+			preparedStmt.setString(5, null);
+			preparedStmt.setString(6, null);
+			preparedStmt.setString(7, null);
+			preparedStmt.setString(8, null);
+			switch (paymentHolder) {
+			case "Doctor":
+				preparedStmt.setString(6, payeeId);
+				break;
+			case "Hospital":
+				preparedStmt.setString(5, payeeId);
+				break;
+			case "Pharmacy":
+				preparedStmt.setString(7, payeeId);
+				break;
+			case "Patient":
+				preparedStmt.setString(8, payeeId);
+				break;
+			}
+
+			boolean status = preparedStmt.execute();
+			if(status) {
+				output = "Updated Failed";
+			}else {
+				output = "Update successfully";
+			}
 			con.close();
-			output = "Updated successfully";
+			
 		} catch (Exception e) {
 			output = "Error while updating the item.";
 			System.err.println(e.getMessage());
