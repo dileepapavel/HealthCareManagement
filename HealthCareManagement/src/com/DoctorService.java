@@ -26,9 +26,9 @@ public class DoctorService {
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String insertDoctor(@FormParam("doctorID") int doctorID,@FormParam("doctorAge") String doctorAge,@FormParam("doctorName") String doctorName,@FormParam("doctorMail") String doctorMail,@FormParam("doctorSpeciality") String doctorSpeciality)
+	public String insertDoctor(@FormParam("doctorID") int doctorID,@FormParam("doctorAge") String doctorAge,@FormParam("doctorName") String doctorName,@FormParam("doctorMail") String doctorMail,@FormParam("doctorSpeciality") String doctorSpeciality,@FormParam("MediRegNo") String MediRegNo,@FormParam("workedHospital") String workedHospital)
 	{
-		String output = doctorObj.insertDoctor(doctorID, doctorAge, doctorName, doctorMail, doctorSpeciality);
+		String output = doctorObj.insertDoctor(doctorID, doctorAge, doctorName, doctorMail, doctorSpeciality,MediRegNo, workedHospital);
 		return output;
 	}
 	
@@ -46,7 +46,9 @@ public class DoctorService {
 	String doctorName = doctorObject.get("doctorName").getAsString();
 	String doctorMail = doctorObject.get("doctorMail").getAsString();
 	String doctorSpeciality = doctorObject.get("doctorSpeciality").getAsString();
-	String output = doctorObj.updateDoctor(doctorID, doctorAge, doctorName, doctorMail, doctorSpeciality);
+	String MediRegNo = doctorObject.get("MediRegNo").getAsString();
+	String workedHospital = doctorObject.get("workedHospital").getAsString();
+	String output = doctorObj.updateDoctor(doctorID, doctorAge, doctorName, doctorMail, doctorSpeciality,MediRegNo,workedHospital);
 	return output;
 	}
 	
