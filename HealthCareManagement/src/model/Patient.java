@@ -5,28 +5,17 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-
+import dbconnection.DBConnection;
 import javax.ws.rs.FormParam;
 
 public class Patient {
 	// A common method to connect to the DB
-	private Connection connect() {
-		Connection con = null;
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-
-			// Provide the correct details: DBServer/DBName, userName, password
-			con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/user", "root", "root");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return con;
-	}
-
+	
 	public String insertPatient(String Name, String age, String nic, String phoneNo) {
 		String output = "";
 		try {
-			Connection con = connect();
+			DBConnection dbconnection = new DBConnection();
+			Connection con = dbconnection.connect();
 			if (con == null) {
 				return "Error while connecting to the database for inserting.";
 			}
@@ -54,12 +43,13 @@ public class Patient {
 	public String readPatients() {
 		String output = "";
 		try {
-			Connection con = connect();
+			DBConnection dbconnection = new DBConnection();
+			Connection con = dbconnection.connect();
 			if (con == null) {
 				return "Error while connecting to the database for reading.";
 			}
 			// Prepare the html table to be displayed
-			output = "<table border=\"1\"><th>Patient Name</th><th>Age</th><th>NIC</th><th></th><th>Update</th><th>Remove</th></tr>";
+			output = "<table border=\"1\"><th>Patient Name</th><th>Age</th><th>NIC</th><th>Contact No</th><th>Update</th><th>Remove</th></tr>";
 			String query = "select * from patients";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
@@ -94,7 +84,8 @@ public class Patient {
 	public String updatePatient(String ID, String name, String age, String nic, String pNo) {
 		String output = "";
 		try {
-			Connection con = connect();
+			DBConnection dbconnection = new DBConnection();
+			Connection con = dbconnection.connect();
 			if (con == null) {
 				return "Error while connecting to the database for updating.";
 			}
@@ -122,7 +113,8 @@ public class Patient {
 	public String deletePatients(String userID) {
 		String output = "";
 		try {
-			Connection con = connect();
+			DBConnection dbconnection = new DBConnection();
+			Connection con = dbconnection.connect();
 			if (con == null) {
 				return "Error while connecting to the database for deleting.";
 			}
