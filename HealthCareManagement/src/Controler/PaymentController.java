@@ -154,7 +154,7 @@ public class PaymentController {
 		return output;
 	}
 
-	public String deleteItem(String itemID) {
+	public String deletePayment(String PaymentID) {
 		String output = "";
 		try {
 			Connection con = connect();
@@ -162,10 +162,10 @@ public class PaymentController {
 				return "Error while connecting to the database for deleting.";
 			}
 // create a prepared statement
-			String query = "delete from items where itemID=?";
+			String query = "delete from payments where PaymentID=?";
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 // binding values
-			preparedStmt.setInt(1, Integer.parseInt(itemID));
+			preparedStmt.setString(1, PaymentID);
 // execute the statement
 			preparedStmt.execute();
 			con.close();
